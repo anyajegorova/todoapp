@@ -3,10 +3,9 @@ import ListItem from './components/ListItem';
 import { useEffect, useState } from 'react';
 
 const App = () => {
-
+  const userEmail = 'anna@test.com';
+  const [tasks, setTasks] = useState(null);
   const getData = async () => {
-    const userEmail = 'anna@test.com';
-    const [tasks, setTasks] = useState(null);
     try {
       const response = await fetch(`http://localhost:8000/todos/${userEmail}`)
       const json = await response.json()
@@ -24,8 +23,8 @@ const App = () => {
 
   return (
     <div className='app'>
-      <ListHeader listName={'Holiday tick list'} />
-      {sortedTasks?.map((task) => <ListItem key={task.id} task={task} />)}
+      <ListHeader listName={'Holiday tick list'} getData={getData} />
+      {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData} />)}
     </div>
   );
 }

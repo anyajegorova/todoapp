@@ -5,7 +5,7 @@ import Modal from './Modal';
 
 
 
-const ListItem = ({ task }) => {
+const ListItem = ({ task, getData }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <li className='list-item'>
@@ -21,7 +21,7 @@ const ListItem = ({ task }) => {
         <button className='delete'>DELETE</button>
 
       </div>
-      {showModal && <Modal mode={'edit'} setShowModal={setShowModal} />}
+      {showModal && <Modal mode={'edit'} setShowModal={setShowModal} getData = {getData}task={task}/>}
 
     </li>
   );
