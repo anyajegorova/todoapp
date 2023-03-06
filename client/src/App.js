@@ -16,10 +16,12 @@ const App = () => {
     }
   }
 
-  useEffect(() => getData(), [])
+  useEffect(() => getData, [])
+
   console.log(tasks)
   //Sort by date
   const sortedTasks = tasks?.sort((a, b) => new Date(a.date) - new Date(b.date))
+
   return (
     <div className='app'>
       <ListHeader listName={'Holiday tick list'} />
