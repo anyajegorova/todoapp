@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 const App = () => {
   const userEmail = 'anna@test.com';
   const [tasks, setTasks] = useState(null);
+  
   const getData = async () => {
     try {
       const response = await fetch(`http://localhost:8000/todos/${userEmail}`)
@@ -17,7 +18,6 @@ const App = () => {
 
   useEffect(() => getData, [])
 
-  console.log(tasks)
   //Sort by date
   const sortedTasks = tasks?.sort((a, b) => new Date(a.date) - new Date(b.date))
 
@@ -30,3 +30,4 @@ const App = () => {
 }
 
 export default App;
+

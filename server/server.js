@@ -17,7 +17,7 @@ app.get('/todos/:userEmail', async (req, res) => {
     const id = uuidv4()
     console.log(userEmail)
     try {
-        const todos = await pool.query('SELECT * FROM todos WHERE user_email = $1', [userEmail])
+        const todos = await pool.query('SELECT * FROM todos WHERE user_email = $1;', [userEmail])
         res.json(todos.rows)
 
     } catch (err) {
@@ -27,14 +27,27 @@ app.get('/todos/:userEmail', async (req, res) => {
 
 //create new todo
 
-app.post('/todos', async(req, res) => {
+app.post('/todos', async (req, res) => {
     const { user_email, title, progress, date } = req.body;
     try {
-        const newTodo = await pool.query(`INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5)`,
+        const newTodo = await pool.query(`INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5;)`,
             [id, user_email, title, progress, date])
-            res.json(newTodo)
+        res.json(newTodo)
     } catch (err) {
         console.err(err)
+    }
+})
+
+//edit todo
+
+app.put('/todos/:id', async (req, res) => {
+    const { id } = req.params;
+    const { user_email, title, progress, date } = req.body;
+    try {
+        const editTodo = await pool.query('UPDATE todos SET user_email = $1, title = $2, progress = $3, date = $4 WHERE id = $5;', [user_email, title, progress, date, id])
+        res.json(editTodo)
+    } catch (err) {
+        console.error(err)
     }
 })
 
