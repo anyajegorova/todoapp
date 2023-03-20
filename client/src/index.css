@@ -211,3 +211,16 @@ input {
     padding: 10px;
 
 }
+
+.copyright {
+    font-size: 13px;
+    margin: 10px;
+    color: rgb(144, 144, 144)
+}
+
+.userEmail {
+    float: right;
+    font-size: 13px;
+    margin: 10px;
+    color: rgb(144, 144, 144)
+}

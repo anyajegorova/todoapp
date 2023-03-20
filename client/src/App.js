@@ -45,7 +45,7 @@ const App = () => {
           {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData} />)}
         </>
       }
-      <p className="copyright">Creative Coding LLC</p>
+      <p className="copyright">© Creative Coding LLC</p>
 
     </div>
   );
