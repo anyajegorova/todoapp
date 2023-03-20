@@ -2,6 +2,9 @@ import { useState } from 'react';
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
 
   const viewLogin = (status) => {
@@ -9,15 +12,24 @@ function Auth() {
     setIsLogin(status)
   }
 
+  const handleSubmit = async (e, endpoint) => {
+    e.preventDefault();
+    if (!isLogin && password !== confirmPassword) {
+      setError('Make sure passwords match!')
+      return
+    }
+    await fetch(`${process.env.REACT_APP_SERVERURL}/${endpoint}`)
+  }
+
   return (
     <div className="auth-container">
       <div className="auth-container-box">
         <form>
-          <h2>{isLogIn ? 'Please log in' : 'Please sign up'}</h2>
+          <h2>{isLogin ? 'Please log in' : 'Please sign up'}</h2>
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
-          {!isLogIn && <input type="password" placeholder=" confirm password" />}
-          <input type="submit" className="create" />
+          {!isLogin && <input type="password" placeholder=" confirm password" />}
+          <input type="submit" className="create" onClick={() => handleSubmit()} />
           {error && <p>{error}</p>}
         </form>
         <div className="auth-options">

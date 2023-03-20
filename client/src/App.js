@@ -9,7 +9,7 @@ const App = () => {
   const userEmail = 'anna@test.com';
   const [tasks, setTasks] = useState(null);
 
-  const authToken = true;
+  const authToken = false;
 
   const getData = async () => {
     try {
@@ -21,7 +21,14 @@ const App = () => {
     }
   }
 
-  useEffect(() => getData, [])
+  useEffect(() => {
+    if (authToken) {
+      getData()
+
+      
+    }
+  }
+    , [])
 
   //Sort by date
   const sortedTasks = tasks?.sort((a, b) => new Date(a.date) - new Date(b.date))
