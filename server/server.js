@@ -2,6 +2,8 @@ const PORT = process.env.PORT ?? 8000;
 const express = require('express');
 const { v4: uuid4 } = require('uuid');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 
@@ -56,13 +58,52 @@ app.put('/todos/:id', async (req, res) => {
 app.delete('/todos/:id', async (req, res) => {
     const { id } = req.params;
 
-    
+
 
     try {
         const deleteTodo = await pool.query('DELETE FROM todos WHERE id = $1', [id])
         res.json(deleteTodo)
     } catch (err) {
         console.error(err)
+
     }
 })
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
+
+
+//signup
+app.post('/signup', async (req, res) => {
+    const { email, password } = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    try {
+        const signUp = await pool.query(`INSERT INTO users (email, hashed_password) VALUES($1, $2)`,
+            [email, hashedPassword])
+        const token = jwt.sign({ email }, 'secret', { expiresIn: '1hr' })
+        res.json({ email, token })
+    } catch (err) {
+        console.error(err)
+        if (err) {
+            res.json({ detail: err.detail })
+        }
+    }
+})
+
+//login
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const users = await pool.query('SELECT * FROM users WHERE email = $1', [email])
+        if (users.rows.length) return res.json({ detail: 'User does not exist' })
+        const success = await bcrypt.compare(password, users.rows[0].hashed_password)
+        const token = jwt.sign({ email }, 'secret', { expiresIn: '1hr' })
+
+        if (success) {
+            res.json({ 'email': users.rows[0].email, token })
+        } else {
+            res.json({ detail: 'Login failed' })
+        }
+    } catch (err) {
+        console.error(err)
+    }
+})
