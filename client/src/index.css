@@ -1,3 +1,8 @@
+* {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:rgb(35, 38, 47)
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -32,8 +37,8 @@ body {
 }
 
 .edit {
-    border: 1.5 px solid rgp(141, 181, 145);
-    color: rgp(141, 181, 145);
+    border: 1.5px solid rgb(141, 181, 145);
+    color: rgb(141, 181, 145);
     text-transform: uppercase;
 }
 
@@ -42,13 +47,13 @@ body {
 }
 
 .edit:active {
-    border: 1.5 px solid rgp(141, 181, 145);
-    color: rgp(255, 255, 255);
+    border: 1.5px solid rgb(141, 181, 145);
+    color: rgb(255, 255, 255);
     background-color: rgb(141, 181, 145)
 }
 
 .delete {
-    border: 1.5 solid rgb(255, 175, 163);
+    border: 1.5px solid rgb(255, 175, 163);
     color: rgb(255, 175, 163);
     text-transform: uppercase;
 }
@@ -78,7 +83,7 @@ body {
 }
 
 .signout {
-    border: 1.5 px solid rgb(255, 175, 163);
+    border: 1.5px solid rgb(255, 175, 163);
     background-color: rgb(255, 175, 163) !important;
     color: rgb(234, 234, 234);
 }
@@ -109,6 +114,9 @@ input {
     border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
 }
 
+.list-header h1 {
+    margin-left: 20px
+}
 /*List Item*/
 .list-item {
     width: 100%;
