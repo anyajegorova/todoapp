@@ -9,8 +9,6 @@ function Auth() {
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log(cookie)
-
   const viewLogin = (status) => {
     setError(null)
     setIsLogin(status)

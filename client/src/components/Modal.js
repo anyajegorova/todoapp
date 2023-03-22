@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCookies } from 'react-cookie'
 
-function Modal({ mode, setShowModal, getData, task }) {
+const Modal = ({ mode, setShowModal, getData, task }) => {
   const editMode = mode === 'edit' ? true : false;
   const [cookies, setCookies, removeCookie] = useCookies(null)
 
@@ -19,8 +19,9 @@ function Modal({ mode, setShowModal, getData, task }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-      })
-
+      }
+        , console.log(data))
+      console.log(response)
       if (response.status === 200) {
         console.log('worked')
         setShowModal(false)
@@ -54,11 +55,13 @@ function Modal({ mode, setShowModal, getData, task }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setData(data => ({
       ...data,
-      [name]: [value]
+      [name]: value
     }))
   }
+
   return (
     <div className='overlay'>
       <div className='modal'>
